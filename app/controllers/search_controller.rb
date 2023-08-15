@@ -3,7 +3,11 @@ class SearchController < ApplicationController
     q = params[:q]
 
     if q.blank? || q.length < 3
-      return redirect_back(fallback_location: root_path, alert: "Please, enter at least 3 characters")
+      if turbo_frame_request? && turbo_frame_request_id.include?("nav--search--results")
+        return render partial: "shared/nav_search_results"
+      else
+        return redirect_back(fallback_location: root_path, alert: "Please, enter at least 3 characters")
+      end
     end
 
     @artists = Artist.search(q).limit(10)
