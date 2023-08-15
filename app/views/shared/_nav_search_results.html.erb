@@ -1,10 +1,10 @@
 <%# locals: (artists: [], albums: [], tracks: []) -%>
-<%= turbo_frame_tag "nav--search--results" do %>
+<%= turbo_frame_tag "nav--search--results", data: { "search-target" => "results" } do %>
   <% unless [artists, albums, tracks].all?(&:empty?) %>
     <ul class="nav--search--results">
       <% artists.each do |artist| %>
         <li class="nav--search--result">
-          <%= link_to artist, class: "hover:text-secondary" do %>
+          <%= link_to artist, class: "hover:text-secondary", data: { action: "click->search#hide" } do %>
             <%= artist.name %>
           <% end %>
         </li>
@@ -12,7 +12,7 @@
 
       <% albums.each do |album| %>
         <li class="nav--search--result">
-          <%= link_to album, class: "hover:text-secondary" do %>
+          <%= link_to album, class: "hover:text-secondary", data: { action: "click->search#hide" } do %>
             <%= album.title %>
           <% end %>
           <span class="ml-2 text-primary text-xsmall"><%= album.artist.name %></span>
@@ -21,7 +21,7 @@
 
       <% tracks.each do |track| %>
         <li class="nav--search--result">
-          <%= link_to play_track_path(track), class: "hover:text-secondary", data: { "turbo-frame" => "player" } do %>
+          <%= link_to play_track_path(track), class: "hover:text-secondary", data: { "turbo-frame" => "player", action: "click->search#hide" } do %>
             <%= track.title %>
           <% end %>
           <span class="ml-2 text-secondary text-xsmall">
