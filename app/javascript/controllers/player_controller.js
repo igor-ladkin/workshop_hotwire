@@ -14,7 +14,7 @@ function secondsToDuration(num) {
 export default class extends Controller {
   static targets = ["progress", "time"];
   static outlets = ["track"];
-  static values = { duration: Number, track: String, nextTrackUrl: String };
+  static values = { duration: Number, track: String, nextTrackUrl: String, station: Number, stationLive: Boolean };
   static classes = ["playing"];
 
   initialize() {
@@ -125,5 +125,15 @@ export default class extends Controller {
   removeAudioListeners() {
     this.audio.removeEventListener("timeupdate", this.handleTimeUpdate);
     this.audio.removeEventListener("ended", this.handleEnded);
+  }
+
+  stationLiveValueChanged() {
+    if (!this.stationValue) return;
+
+    if (this.stationLiveValue) {
+      this.play();
+    } else {
+      this.pause();
+    }
   }
 }

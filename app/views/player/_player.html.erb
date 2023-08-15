@@ -6,6 +6,8 @@
   data-player-playing-class="player-playing"
   data-player-next-track-url-value="<%= live ? play_next_live_station_path : (!station && play_next_track_path(track))%>"
   data-player-track-outlet=".track"
+  data-player-station-value="<%= station&.id %>"
+  data-player-station-live-value="<%= live %>"
 >
   <% if track %>
     <div class="player--timeline" data-action="<%= "click->player#seek" if live || !station %>">
@@ -26,10 +28,10 @@
 
   <% if station %>
     <div class="player--controls">
-      <%= button_to "#", method: :post, class: "player-btn", form: {data: {"turbo-command" => "PlayerCommand#resume"}} do %>
+      <%= button_to "#", method: :post, class: "player-btn", form: {data: {"turbo-command" => "PlayerCommand#resume"}}, data: { role: "play-button" } do %>
         <%= render "icons/play" %>
       <% end %>
-      <%= button_to "#", method: :post, class: "player-btn", form: {data: {"turbo-command" => "PlayerCommand#pause"}} do %>
+      <%= button_to "#", method: :post, class: "player-btn", form: {data: {"turbo-command" => "PlayerCommand#pause"}}, data: { role: "pause-button" } do %>
         <%= render "icons/pause" %>
       <% end %>
     </div>
