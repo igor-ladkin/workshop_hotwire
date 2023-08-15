@@ -1,12 +1,16 @@
 class LiveStationChannel < ApplicationChannel
+  delegate :broadcast_replace_to, to: :"Turbo::StreamsChannel"
+
   def subscribed
+    stream_for station
+
     station.increment_listeners_count
-    puts "There are #{station.listeners_count} listeners on #{station.name}"
+    broadcast_replace_to station, target: dom_id(station, :listeners_count), partial: "player/listeners_count", locals: {station: station}
   end
 
   def unsubscribed
     station.decrement_listeners_count
-    puts "There are #{station.listeners_count} listeners on #{station.name}"
+    broadcast_replace_to station, target: dom_id(station, :listeners_count), partial: "player/listeners_count", locals: {station: station}
   end
 
   private
