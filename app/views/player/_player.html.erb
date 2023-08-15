@@ -22,6 +22,18 @@
     </span>
   </div>
   <% end %>
+
+  <% if station %>
+    <div class="player--controls">
+      <%= button_to "#", method: :post, class: "player-btn", form: {data: {"turbo-command" => "PlayerCommand#resume"}} do %>
+        <%= render "icons/play" %>
+      <% end %>
+      <%= button_to "#", method: :post, class: "player-btn", form: {data: {"turbo-command" => "PlayerCommand#pause"}} do %>
+        <%= render "icons/pause" %>
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="player--track">
     <% if station %>
       <% if live %>
