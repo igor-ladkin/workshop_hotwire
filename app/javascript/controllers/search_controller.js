@@ -1,12 +1,17 @@
 import { Controller } from "@hotwired/stimulus";
-import { useDebounce } from "stimulus-use";
+import { useDebounce, useClickOutside } from "stimulus-use";
 
 export default class extends Controller {
   static targets = ["q", "results"];
   static debounces = ["perform"]
 
   connect() {
+    useClickOutside(this);
     useDebounce(this, { wait: 300 });
+  }
+
+  clickOutside(e) {
+    this.clear();
   }
 
 
@@ -19,16 +24,20 @@ export default class extends Controller {
   select(e) {
     e.preventDefault();
 
-    this.qTarget.value = "";
-    this.resultsTarget.innerHTML = "";
-
     const frame = e.target.dataset.turboFrame;
     const path = e.target.href;
+
+    this.clear();
 
     if (frame) {
       Turbo.visit(path, { frame });
     } else {
       Turbo.visit(path);
     }
+  }
+
+  clear() {
+    this.qTarget.value = "";
+    this.resultsTarget.innerHTML = "";
   }
 }
