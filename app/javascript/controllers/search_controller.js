@@ -1,7 +1,14 @@
 import { Controller } from "@hotwired/stimulus";
+import { useDebounce } from "stimulus-use";
 
 export default class extends Controller {
   static targets = ["q", "results"];
+  static debounces = ["perform"]
+
+  connect() {
+    useDebounce(this, { wait: 300 });
+  }
+
 
   perform() {
     if (this.qTarget.value) {
