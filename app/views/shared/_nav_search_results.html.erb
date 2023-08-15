@@ -1,17 +1,34 @@
-<ul class="nav--search--results">
-  <li class="nav--search--result">
-    <a class="hover:text-secondary" href="#">Limp Bizkit</a>
-  </li>
-  <li class="nav--search--result">
-    <a class="hover:text-secondary" href="#">Limpnificant Other</a>
-    <span class="ml-2 text-primary text-xsmall">Limp Bizkit</span>
-  </li>
-  <li class="nav--search--result">
-    <a data-turbo-frame="player" class="hover:text-primary" href="#">Climbing On Roofs (The Despera)</a>
-    <span class="ml-2 text-secondary text-xsmall">65daysofstatic</span>
-  </li>
-  <li class="nav--search--result">
-    <a class="hover:text-primary" href="#">Slim Pickens Does The Right Thing And Rides The Bomb To Hell [Explicit Version]</a>
-    <span class="ml-2 text-secondary text-xsmall">The Offspring</span>
-  </li>
-</ul>
+<%# locals: (artists: [], albums: [], tracks: []) -%>
+<%= turbo_frame_tag "nav--search--results" do %>
+  <% unless [artists, albums, tracks].all?(&:empty?) %>
+    <ul class="nav--search--results">
+      <% artists.each do |artist| %>
+        <li class="nav--search--result">
+          <%= link_to artist, class: "hover:text-secondary" do %>
+            <%= artist.name %>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% albums.each do |album| %>
+        <li class="nav--search--result">
+          <%= link_to album, class: "hover:text-secondary" do %>
+            <%= album.title %>
+          <% end %>
+          <span class="ml-2 text-primary text-xsmall"><%= album.artist.name %></span>
+        </li>
+      <% end %>
+
+      <% tracks.each do |track| %>
+        <li class="nav--search--result">
+          <%= link_to play_track_path(track), class: "hover:text-secondary", data: { "turbo-frame" => "player" } do %>
+            <%= track.title %>
+          <% end %>
+          <span class="ml-2 text-secondary text-xsmall">
+            <%= track.album.title %> by <%= track.album.artist.name %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
