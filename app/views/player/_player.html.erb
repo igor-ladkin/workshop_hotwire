@@ -40,6 +40,7 @@
             <span class="player--listeners--count">3</span>
           </span>
         </div>
+        <%= turbo_stream_from station, channel: LiveStationChannel %>
       <% else %>
         <div class="player--radio">
           <%= render "icons/radio" %>
