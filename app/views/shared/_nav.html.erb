@@ -19,6 +19,7 @@
         <%= render "icons/search" %>
       </div>
       <%= f.search_field :q, value: params[:q], class: "nav--search--input" %>
+      <%= render partial: "shared/nav_search_results" %>
     <% end %>
   </div>
   <div class="nav--right">
