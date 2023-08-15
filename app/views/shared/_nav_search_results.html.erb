@@ -1,5 +1,5 @@
 <%# locals: (artists: [], albums: [], tracks: []) -%>
-<%= turbo_frame_tag "nav--search--results", data: { "search-target" => "results" } do %>
+<%= turbo_frame_tag "nav--search--results", data: { "search-target" => "results", "turbo-temporary" => "" } do %>
   <% unless [artists, albums, tracks].all?(&:empty?) %>
     <ul class="nav--search--results">
       <% artists.each do |artist| %>
