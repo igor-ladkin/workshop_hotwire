@@ -9,7 +9,19 @@ export default class extends Controller {
     }
   }
 
-  hide(e) {
+  select(e) {
+    e.preventDefault();
+
+    this.qTarget.value = "";
     this.resultsTarget.innerHTML = "";
+
+    const frame = e.target.dataset.turboFrame;
+    const path = e.target.href;
+
+    if (frame) {
+      Turbo.visit(path, { frame });
+    } else {
+      Turbo.visit(path);
+    }
   }
 }
