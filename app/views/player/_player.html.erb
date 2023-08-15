@@ -12,12 +12,13 @@
       <div class="player--timeline-progress" style="width:0%;" data-player-target="progress"></div>
     </div>
   <% end %>
+
   <% unless station %>
   <div class="player--controls">
-    <span class="player-btn" data-action="click->player#play">
+    <span class="player-btn" data-action="click->player#play" data-role="play-button">
       <%= render "icons/play" %>
     </span>
-    <span class="player-btn" data-action="click->player#pause">
+    <span class="player-btn" data-action="click->player#pause" data-role="pause-button">
       <%= render "icons/pause" %>
     </span>
   </div>
