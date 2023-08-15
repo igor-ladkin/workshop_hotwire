@@ -1,0 +1,34 @@
+<%# locals: (artists: [], albums: [], tracks: []) -%>
+<%= turbo_frame_tag "nav--search--results", data: { "search-target" => "results", "turbo-temporary" => "" } do %>
+  <% unless [artists, albums, tracks].all?(&:empty?) %>
+    <ul class="nav--search--results">
+      <% artists.each do |artist| %>
+        <li class="nav--search--result">
+          <%= link_to artist, class: "hover:text-secondary", data: { action: "click->search#select" } do %>
+            <%= artist.name %>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% albums.each do |album| %>
+        <li class="nav--search--result">
+          <%= link_to album, class: "hover:text-secondary", data: { action: "click->search#select" } do %>
+            <%= album.title %>
+          <% end %>
+          <span class="ml-2 text-primary text-xsmall"><%= album.artist.name %></span>
+        </li>
+      <% end %>
+
+      <% tracks.each do |track| %>
+        <li class="nav--search--result">
+          <%= link_to play_track_path(track), class: "hover:text-secondary", data: { "turbo-frame" => "player", action: "click->search#select" } do %>
+            <%= track.title %>
+          <% end %>
+          <span class="ml-2 text-secondary text-xsmall">
+            <%= track.album.title %> by <%= track.album.artist.name %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
