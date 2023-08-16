@@ -1,5 +1,5 @@
 class TracksController < ApplicationController
-  helper_method :current_page, :next_page
+  helper_method :current_page, :next_page, :per_page
 
   def index
     @artist = Artist.find(params[:artist_id])
