@@ -1,0 +1,11 @@
+<%= render partial: "artists/artist_info", locals: {artist:} %>
+
+<hr class="my-4">
+
+<h2 class="text-header-2">
+  Tracks
+</h2>
+
+<ul>
+  <%= render partial: "tracks", locals: {artist:, tracks:, current_page:, next_page:} %>
+</ul>
