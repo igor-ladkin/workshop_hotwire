@@ -15,7 +15,6 @@ export default class extends Controller {
   }
 
   remove() {
-    if (this.removeTid) clearTimeout(this.removeTid);
     this.element.remove();
   }
 }
