@@ -68,6 +68,14 @@ export default class extends Controller {
     this.playing = false;
   }
 
+  toggle() {
+    if (this.playing) {
+      this.pause();
+    } else {
+      this.play();
+    }
+  }
+
   seek(e) {
     const position =
       (e.offsetX / e.currentTarget.offsetWidth) * this.durationValue;
