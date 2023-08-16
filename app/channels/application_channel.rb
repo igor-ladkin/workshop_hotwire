@@ -1,6 +1,3 @@
-class ApplicationChannel < ApplicationCable::Channel
-  extend Turbo::Streams::Broadcasts
-  extend Turbo::Streams::StreamName
-  include Turbo::Streams::StreamName::ClassMethods
+class ApplicationChannel < Turbo::StreamsChannel
   include ActionView::RecordIdentifier
 end
