@@ -11,7 +11,7 @@ document.addEventListener("turbo:before-render", (event) => {
     await new Promise((resolve) => setTimeout(() => resolve(), 0));
     morphdom(prevEl, newEl, {
       onBeforeElUpdated(fromEl, toEl) {
-        if (fromEl === toEl) return false;
+        if (fromEl.isEqualNode(toEl)) return false;
 
         return !fromEl.hasAttribute('data-turbo-permanent-morphdom');
       }
