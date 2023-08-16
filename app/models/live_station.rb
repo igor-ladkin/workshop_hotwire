@@ -35,4 +35,22 @@ class LiveStation < ApplicationRecord
   end
 
   def current_track = tracks.first
+
+  def listeners_count
+    Rails.cache.fetch(listeners_cache_key, expires_in: 1.minute) { 0 }
+  end
+
+  def increment_listeners_count
+    Rails.cache.increment listeners_cache_key
+  end
+
+  def decrement_listeners_count
+    Rails.cache.decrement listeners_cache_key
+  end
+
+  private
+
+  def listeners_cache_key
+    [:live_station, self, :listeners]
+  end
 end
